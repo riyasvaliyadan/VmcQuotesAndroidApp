@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -25,10 +26,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.vmcplus.quotes.data.Data.quotes
 import com.vmcplus.quotes.ui.theme.VmcQuotesTheme
@@ -47,7 +49,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun MyApp(modifier: Modifier) {
     val context = LocalContext.current
-    var clickSoundPlayer = remember {ClickSoundPlayer(context)}
+    val clickSoundPlayer = remember {ClickSoundPlayer(context)}
     var quote by remember { mutableStateOf(quotes.random()) }
     Surface(modifier = modifier, color = MaterialTheme.colorScheme.background) {
         Box(
@@ -59,14 +61,15 @@ private fun MyApp(modifier: Modifier) {
                 Text(
                     text = quote.quote,
                     style = MaterialTheme.typography.headlineLarge.copy(
-                        fontWeight = FontWeight.ExtraBold),
-                    modifier = Modifier.padding(bottom = 10.dp)
+                        fontWeight = FontWeight.Medium, textAlign = TextAlign.Center),
+                    modifier = Modifier.padding(top = 140.dp, bottom = 30.dp).fillMaxWidth()
                 )
                 Text(
                     text = "by ${quote.author}",
                     style = MaterialTheme.typography.titleLarge.copy(
-                        fontStyle = FontStyle.Italic
-                    )
+                        fontWeight = FontWeight.Light, fontStyle = FontStyle.Italic, textAlign = TextAlign.Center
+                    ),
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
             NextButton(
@@ -96,7 +99,8 @@ fun NextButton(modifier: Modifier, nextClicked: () -> Unit) {
         Icon(
             modifier = Modifier.size(80.dp),
             imageVector = Icons.Filled.NavigateNext,
-            contentDescription = null
+            contentDescription = null,
+            tint = Color.Black
         )
     }
 }
