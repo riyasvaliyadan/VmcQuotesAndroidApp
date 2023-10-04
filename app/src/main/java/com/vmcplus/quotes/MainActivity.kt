@@ -1,0 +1,102 @@
+package com.vmcplus.quotes
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.NavigateNext
+import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.vmcplus.quotes.data.Data.quotes
+import com.vmcplus.quotes.ui.theme.VmcQuotesTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            VmcQuotesTheme {
+                MyApp(modifier = Modifier.fillMaxSize())
+            }
+        }
+    }
+}
+
+@Composable
+private fun MyApp(modifier: Modifier) {
+    val context = LocalContext.current
+    var clickSoundPlayer = remember {ClickSoundPlayer(context)}
+    var quote by remember { mutableStateOf(quotes.random()) }
+    Surface(modifier = modifier, color = MaterialTheme.colorScheme.background) {
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Column(
+                modifier = Modifier.padding(20.dp)
+            ) {
+                Text(
+                    text = quote.quote,
+                    style = MaterialTheme.typography.headlineLarge.copy(
+                        fontWeight = FontWeight.ExtraBold),
+                    modifier = Modifier.padding(bottom = 10.dp)
+                )
+                Text(
+                    text = "by ${quote.author}",
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontStyle = FontStyle.Italic
+                    )
+                )
+            }
+            NextButton(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 160.dp)
+            ) {
+                quote = quotes.random()
+                clickSoundPlayer.play()
+            }
+        }
+
+        DisposableEffect(Unit) {
+            onDispose { clickSoundPlayer.release() }
+        }
+    }
+}
+
+@Composable
+fun NextButton(modifier: Modifier, nextClicked: () -> Unit) {
+    FilledIconButton(
+        modifier = modifier
+            .size(100.dp)
+            .shadow(5.dp, CircleShape),
+        onClick = nextClicked
+    ) {
+        Icon(
+            modifier = Modifier.size(80.dp),
+            imageVector = Icons.Filled.NavigateNext,
+            contentDescription = null
+        )
+    }
+}
