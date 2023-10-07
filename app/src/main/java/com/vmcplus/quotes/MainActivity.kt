@@ -61,7 +61,9 @@ private fun MyApp(modifier: Modifier) {
                     text = quote.toString(),
                     style = MaterialTheme.typography.headlineLarge.copy(
                         fontWeight = FontWeight.Medium, textAlign = TextAlign.Center),
-                    modifier = Modifier.padding(top = 140.dp, bottom = 30.dp).fillMaxWidth()
+                    modifier = Modifier
+                        .padding(top = 140.dp, bottom = 30.dp)
+                        .fillMaxWidth()
                 )
                 Text(
                     text = "by ${quote.author}",
