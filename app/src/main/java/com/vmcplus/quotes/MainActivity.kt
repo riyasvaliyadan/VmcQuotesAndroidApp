@@ -51,12 +51,8 @@ private fun MyApp(modifier: Modifier) {
     val clickSoundPlayer = remember { ClickSoundPlayer(context) }
     var quote by remember { mutableStateOf(quotes.random()) }
     Surface(modifier = modifier, color = MaterialTheme.colorScheme.background) {
-        Box(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Column(
-                modifier = Modifier.padding(20.dp)
-            ) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            Column(modifier = Modifier.padding(20.dp)) {
                 Text(
                     text = quote.toString(),
                     style = MaterialTheme.typography.headlineLarge.copy(
