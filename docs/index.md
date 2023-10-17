@@ -1,5 +1,5 @@
 # Privacy Policy for Vmc Quotes App
-This privacy policy applies to the Android app 'Vmc Quotes App' (the "App") published by VMC Labs (the "Developer").
+This privacy policy applies to the Android app 'Quotes' (the "App") published by Riyas Valiyadan (the "Developer").
 The Developer does not collect any personal information from users of the App. The App does not collect any data that could be used to identify users, such as names, email addresses, or phone numbers. The App also does not collect any data that could be used to track users' activity, such as their location or the websites they visit.
 
 ## Changes to this Privacy Policy
